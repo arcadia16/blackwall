@@ -8,6 +8,8 @@
 ![Static Badge](https://img.shields.io/badge/paramiko-v3.5.1-blue)
 
 ## FAQ
+> [!CAUTION]
+> Project is WIP and not usable for production testing as of now [08/05/2025]. Proceed with caution.
 
 Q: What is this?
 <br>
