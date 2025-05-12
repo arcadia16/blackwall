@@ -1,7 +1,8 @@
 # BlackWall
-![Elasticsearch](https://img.shields.io/badge/elasticsearch-%230377CC.svg?style=for-the-badge&logo=elasticsearch&logoColor=white)
 ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
 ![Jinja](https://img.shields.io/badge/jinja-white.svg?style=for-the-badge&logo=jinja&logoColor=black)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
+![Elasticsearch](https://img.shields.io/badge/elasticsearch-%230377CC.svg?style=for-the-badge&logo=elasticsearch&logoColor=white)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 
 ![Static Badge](https://img.shields.io/badge/python-v3.13-blue)
@@ -9,7 +10,7 @@
 
 ## FAQ
 > [!CAUTION]
-> Project is WIP and not usable for production testing as of now [08/05/2025]. Proceed with caution.
+> Project is WIP and not usable for production testing as of now [12/05/2025]. Proceed with caution.
 
 Q: What is this?
 <br>
