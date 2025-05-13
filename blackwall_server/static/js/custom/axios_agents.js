@@ -4,7 +4,7 @@ axiosAgents.forEach((axiosAgent) => axiosAgent.addEventListener("click", axios_g
 async function axios_get_agent_state() {
     const axios_resp = document.querySelector("#agent_" + this.value)
     axios_resp.textContent = 'Pending...'
-    const response = await axios.get('/ag/' + this.value)
+    const response = await axios.get('/agent/' + this.value)
     console.log(response)
     if (response.data == null) {
         axios_resp.textContent = 'Agent connection failed.'
@@ -12,7 +12,7 @@ async function axios_get_agent_state() {
     else {
         var status = document.querySelector("#status_" + this.value)
         status.classList.remove("bi-question-circle")
-        axios_resp.textContent = `Agent ${response.data.AGENT_ID}: ${response.data.STATE}`
+        axios_resp.textContent = `Agent ${response.dataAGENT_ID}: ${response.data.STATE}`
         // Separate classes for states DEAD, BRCH, WARN, GOOD, make switch function
         if (response.data.STATE == 200) {
             status.classList.add("bi-check-circle-fill", "text-success")

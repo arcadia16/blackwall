@@ -7,7 +7,7 @@
     <link href="static/css/bt5/bootstrap.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-Hello world!
+Hello world! Server status = <a class="server-status"></a>
 <div class="container">
     <div class="row row-cols-2">
         {% for agent in agents %}
@@ -23,6 +23,7 @@ Hello world!
         {% endfor %}
     </div>
 </div>
+<script src="static/js/custom/sse.js"></script>
 <script src="static/js/bt5/bootstrap.bundle.min.js"></script>
 <script src="static/js/axios/axios.min.js"></script>
 <script src="static/js/custom/axios_agents.js"></script>
