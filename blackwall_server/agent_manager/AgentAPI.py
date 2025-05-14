@@ -11,7 +11,9 @@ registered_agents = {}
 api_fullname = "agent_manager.AgentAPI.AgentAPI"
 
 class AgentAPI(Resource):
-    def get(self, agent_id: str):
+    def get(self, agent_id: str = None):
+        if agent_id is None:
+            return 200
         logger.api_log(api_fullname, self.get, agent_id)
         logger.log_to_file('request.log', __name__)
         sleep(3)

@@ -7,6 +7,9 @@ from flask import request
 api_log_format = "{}:{} Incoming {} request from {} for agent {}"
 
 
+def log(function_name, message: str) -> None:
+    print(f"{function_name} :: {message}")
+
 def log_to_file(filename: str, function_name: str, message: str = None):
     if filename == "request.log":
         if message is None:

@@ -7,9 +7,9 @@ app = Flask(__name__)
 api = Api(app)
 
 from blackwall_server.routing import routes
-from blackwall_server.blueprints.sse import bp as sse_bp
+from blackwall_server.sse.sse_bp import bp as sse
 
-api.add_resource(AgentAPI, '/agent/<string:agent_id>')
+api.add_resource(AgentAPI, '/agent', '/agent/<string:agent_id>')
 api.add_resource(ConfiguratorAPI, '/cfg')
 
-app.register_blueprint(sse_bp)
+app.register_blueprint(sse)

@@ -12,7 +12,7 @@ async function axios_get_agent_state() {
     else {
         var status = document.querySelector("#status_" + this.value)
         status.classList.remove("bi-question-circle")
-        axios_resp.textContent = `Agent ${response.dataAGENT_ID}: ${response.data.STATE}`
+        axios_resp.textContent = `Agent ${response.data.AGENT_ID}: ${response.data.STATE}`
         // Separate classes for states DEAD, BRCH, WARN, GOOD, make switch function
         if (response.data.STATE == 200) {
             status.classList.add("bi-check-circle-fill", "text-success")
