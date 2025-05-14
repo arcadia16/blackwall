@@ -24,6 +24,6 @@ async function check_server(endpoint, status_object) {
 
 const sseHealth = document.querySelector(".sse-status");
 const serverHealth = document.querySelector(".server-status");
-check_server('/health', serverHealth)
-check_server('/sse', sseHealth);
+check_server('/health', serverHealth);
+check_server('/hello', sseHealth);
 
