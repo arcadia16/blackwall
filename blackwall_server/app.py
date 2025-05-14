@@ -1,6 +1,17 @@
-from flask import render_template, request, jsonify
+from flask import Flask, jsonify, render_template, request
+from flask_restful import Api
 from flask_sse import sse
-from blackwall_server import app
+from config import REDIS_URL
+from agent_manager.AgentAPI import AgentAPI
+from configuration_manager.ConfiguratorAPI import ConfiguratorAPI
+
+app = Flask(__name__)
+api = Api(app)
+app.config["REDIS_URL"] = REDIS_URL
+
+api.add_resource(AgentAPI, '/agent', '/agent/<string:agent_id>')
+api.add_resource(ConfiguratorAPI, '/cfg')
+
 app.register_blueprint(sse, url_prefix='/stream')
 
 @app.route('/')
@@ -33,3 +44,6 @@ def send_data():
 def receive_data():
     print(request.json)
     return "Got"
+
+if __name__ == '__main__':
+    app.run(debug=True, host="0.0.0.0", port=5000)

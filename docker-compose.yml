@@ -1,0 +1,18 @@
+services:
+  # Sucks with ModuleNotFound in root, ditch Flask, embrace FastAPI
+  server:
+    build: ./blackwall_server
+    container_name: blackwall-server
+    environment:
+      - FLASK_ENV=development
+      - PYTHONPATH=/blackwall_server
+    ports:
+      - 80:5000
+    depends_on:
+      - redis
+  # Works
+  redis:
+    image: redis:latest
+    container_name: blackwall-redis
+    ports:
+      - 6379:6379
