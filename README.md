@@ -10,7 +10,7 @@
 
 ## FAQ
 > [!CAUTION]
-> Project is WIP and not usable for production testing as of now [12/05/2025]. Proceed with caution.
+> Project is WIP and not usable for production testing as of now [15/05/2025]. Proceed with caution.
 
 Q: What is this?
 <br>
