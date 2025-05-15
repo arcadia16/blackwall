@@ -21,6 +21,7 @@ async function send_to_server(endpoint, data) {
         .then(response => console.log(response, response.status))
         .catch(error => console.log(error, error.status))
 }
+
 async function ask_server(endpoint) {
     await fetch(endpoint)
     .then(response => {return response})
