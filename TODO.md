@@ -3,8 +3,9 @@
 > This file is going to be modified and rewritten from time to time in case some things won't go along with each other
 ## Server branch
 ### Section 1
-- [ ] Make it
-- [ ] Crude server
+
+- [x] Make it
+- [x] Crude server
 - [ ] Sending files from dirs
 - [ ] Agent interaction (auth agent)
 ### Section 2
@@ -14,7 +15,8 @@
 
 ## Agent branch
 ### Section 1
-- [ ] Make it
+
+- [x] Make it
 - [ ] Crude agent
 - [ ] Server interaction + uuid
 ### Section 2

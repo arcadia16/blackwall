@@ -7,6 +7,7 @@ __pycache__/
 *.so
 .idea
 ssh_host_key
+blackwall_config.py
 # Distribution / packaging
 .Python
 build/
