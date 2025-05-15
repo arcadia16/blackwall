@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="static/css/bt5/bootstrap.min.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="container">
+    Server status: <p class="server-status"></p>
+    SSE service status: <p class="sse-status"></p>
+</div>
+<div class="container">
+    <div class="row row-cols-2">
+        {% for agent in agents %}
+        <!--
+        Space for agent templates
+        -->
+        <div class="col">
+            <button class="btn btn-secondary axios-get" type="button" value={{agent}}>Axios get</button>
+            <a id="agent_{{agent}}"></a>
+            <a>Status: </a><i class="fs-4 bi bi-question-circle" id="status_{{agent}}"></i>
+
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<script src="static/js/custom/server_connector.js"></script>
+<script src="static/js/custom/health_mon.js"></script>
+<script src="static/js/custom/sse.js"></script>
+<script src="static/js/bt5/bootstrap.bundle.min.js"></script>
+<script src="static/js/axios/axios.min.js"></script>
+<script src="static/js/custom/axios_agents.js"></script>
+</body>
+</html>
