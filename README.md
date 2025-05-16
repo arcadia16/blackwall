@@ -7,7 +7,7 @@
 
 ![Static Badge](https://img.shields.io/badge/python-v3.13-blue)
 ![Static Badge](https://img.shields.io/badge/paramiko-v3.5.1-blue)
-
+[![Pylint](https://github.com/arcadia16/blackwall/actions/workflows/pylint.yml/badge.svg?branch=agent)](https://github.com/arcadia16/blackwall/actions/workflows/pylint.yml)
 ## FAQ
 > [!CAUTION]
 > Project is WIP and not usable for production testing as of now [15/05/2025]. Proceed with caution.
