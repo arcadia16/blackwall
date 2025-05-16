@@ -20,5 +20,4 @@ def create_flask_app():
 
     app.register_blueprint(api_bp, url_prefix='/')
     app.register_blueprint(sse_bp, url_prefix='/sse')
-
     return app

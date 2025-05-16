@@ -6,9 +6,11 @@ from .config import LOGGING_TIMEFORM, LOGGING_FILEPATH
 
 REQ_LOG_FORM = "{}:{} Incoming {} request from {} for agent {}"
 
+
 def get_time_now():
     timestamp: datetime = datetime.now()
     return timestamp.strftime(LOGGING_TIMEFORM)
+
 
 def log(function_name, message: str) -> None:
     print(f"{function_name} :: {message}")

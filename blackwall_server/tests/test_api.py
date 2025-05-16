@@ -1,4 +1,7 @@
 from requests import get
 
-def test_api_health():
-    assert get('http://localhost:5000', timeout=15).status_code == 200
+
+def test_home_page():
+    """Test the health status"""
+    assert get('http://localhost:5000/health', timeout=15).status_code == 200
+    print("Test is successful")
