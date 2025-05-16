@@ -1,8 +1,8 @@
 import os
-
-from .config import LOGGING_TIMEFORM, LOGGING_FILEPATH
 from datetime import datetime
 from flask import request
+from .config import LOGGING_TIMEFORM, LOGGING_FILEPATH
+
 
 api_log_format = "{}:{} Incoming {} request from {} for agent {}"
 
@@ -18,7 +18,7 @@ def log_to_file(filename: str, function_name: str, message: str = None):
             message = f"{request.method} {request.remote_addr} {request.url}"
         else:
             message = f"{request.method} {request.remote_addr} {request.url} " + message
-    with open(LOGGING_FILEPATH + filename, 'a') as logfile:
+    with open(LOGGING_FILEPATH + filename, 'a', encoding="utf-8") as logfile:
         logfile.write(
             f"{datetime.now().strftime(LOGGING_TIMEFORM)} {os.getlogin()} {function_name}[{os.getpid()}]: {message}\n")
 

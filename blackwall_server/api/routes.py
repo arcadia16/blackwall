@@ -1,6 +1,4 @@
-from flask import jsonify, render_template, request, Blueprint
-
-# Do own sse
+from flask import render_template, request, Blueprint
 
 api_bp = Blueprint('api_blueprint', __name__)
 

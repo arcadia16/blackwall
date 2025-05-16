@@ -3,7 +3,7 @@ import json
 
 def check_data(data):
     print('\n', data, type(data))
-    if type(data) is bytes:
+    if isinstance(data, bytes):
         try:
             data = data.decode()
             parsed_json = json.loads(data)
