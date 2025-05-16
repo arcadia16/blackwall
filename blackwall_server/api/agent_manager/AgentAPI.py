@@ -3,8 +3,8 @@ from time import sleep
 
 from flask import request
 from flask_restful import Resource
-from .AgentInterface import AgentInterface
-from ..logger import api_log, log_to_file
+# from .AgentInterface import AgentInterface
+# from ..logger import api_log, log_to_file
 
 registered_agents = {}
 

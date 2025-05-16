@@ -33,7 +33,6 @@ def sse_stream():
                 yield f"data: {message}\n\n"
             except Exception as err:
                 print(__name__, err)
-                pass
 
     return Response(sse_events(), mimetype="text/event-stream")
 
