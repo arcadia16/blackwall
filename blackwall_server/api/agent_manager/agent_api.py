@@ -8,6 +8,7 @@ from flask_restful import Resource
 
 registered_agents = {}
 
+
 class AgentAPI(Resource):
     def get(self, agent_id: str = None):
         if agent_id is None:
@@ -20,7 +21,7 @@ class AgentAPI(Resource):
 
     def post(self, agent_id: str):
         # api_log(__name__, self.post, agent_id)
-        #log_to_file('request.log', __name__)
+        # log_to_file('request.log', __name__)
         if registered_agents.get(agent_id) is None:
             registered_agents[agent_id] = request.remote_addr
         print(request.remote_addr, request.json)

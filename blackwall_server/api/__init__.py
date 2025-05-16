@@ -3,8 +3,8 @@ from flask_restful import Api
 from .routes import api_bp
 from .sse.sse_bp import sse_bp
 from .config import REDIS_URL, REDIS_CHANNEL
-from .agent_manager.AgentAPI import AgentAPI
-from .configuration_manager.ConfiguratorAPI import ConfiguratorAPI
+from .agent_manager.agent_api import AgentAPI
+from .configuration_manager.configurator_api import ConfiguratorAPI
 
 
 def create_flask_app():
@@ -20,5 +20,4 @@ def create_flask_app():
 
     app.register_blueprint(api_bp, url_prefix='/')
     app.register_blueprint(sse_bp, url_prefix='/sse')
-
     return app
