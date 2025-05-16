@@ -3,7 +3,7 @@ services:
   server:
     build: .
     container_name: blackwall-server
-    env_file: .env
+#    env_file: .env
     command: gunicorn app:"create_flask_app()" -b 0.0.0.0:8000 --reload -k gevent
     ports:
       - 80:8000
