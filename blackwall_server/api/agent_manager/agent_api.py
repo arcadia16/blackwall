@@ -7,7 +7,7 @@ from flask_restful import Resource
 # from ..logger import api_log, log_to_file
 
 registered_agents = {}
-
+known_clients = {} # For every agent request an id should be provided, maybe JWT?
 
 class AgentAPI(Resource):
     def get(self, agent_id: str = None):
