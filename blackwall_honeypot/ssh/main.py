@@ -28,7 +28,7 @@ class SSHServerHandler(paramiko.ServerInterface):
         return 'password'
 
 
-def handleConnection(client):
+def handle_connection(client):
     transport = paramiko.Transport(client)
 
     transport.add_server_key(HOST_KEY)
@@ -61,7 +61,7 @@ def main():
             try:
                 client_socket, client_addr = server_socket.accept()
                 print('Connection Received From:', client_addr)
-                thread.start_new_thread(handleConnection, (client_socket,))
+                thread.start_new_thread(handle_connection, (client_socket,))
             except Exception as e:
                 print("ERROR: Client handling")
                 print(e)

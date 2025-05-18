@@ -29,7 +29,6 @@ def show_container(container_name: str) -> dict:
 
 
 def get_container(container_name: str) -> Container | None:
-    container: Container
     try:
         return client.containers.get(container_name)
     except NotFound:
