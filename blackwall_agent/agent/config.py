@@ -1,0 +1,1 @@
+MASTER_SERVER_IP = "http://192.168.1.64:5000/"

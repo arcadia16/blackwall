@@ -11,17 +11,19 @@ async function axios_get_agent_state() {
     }
     else {
         var status = document.querySelector("#status_" + this.value)
-        status.classList.remove("bi-question-circle")
         axios_resp.textContent = `Agent ${response.data.AGENT_ID}: ${response.data.STATE}`
         // Separate classes for states DEAD, BRCH, WARN, GOOD, make switch function
         if (response.data.STATE == 200) {
-            status.classList.add("bi-check-circle-fill", "text-success")
+            status.classList.remove("text-warning-emphasis", "text-danger")
+            status.classList.add("text-success")
         }
         if (response.data.STATE == 300) {
-            status.classList.add("bi-wrench-adjustable-circle-fill", "text-warning-emphasis")
+            status.classList.remove("text-success", "text-danger")
+            status.classList.add("text-warning-emphasis")
         }
-        if (response.data.STATE == 400) {
-            status.classList.add("bi-x-circle-fill", "text-danger")
+        if (response.data.STATE == 400 || response.data.STATE == 500) {
+            status.classList.remove("text-success", "text-warning-emphasis")
+            status.classList.add("text-danger")
         }
     }
 }

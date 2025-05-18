@@ -28,7 +28,8 @@ def split_by(text, size, mode='strict'):
             container = [text[i * size:(i + 1) * size] for i in range(number_of_valid_blocks)]
             container.append(text[number_of_valid_blocks * size:])
             for block in container:
-                if block == '': container.remove(block)
+                if block == '':
+                    container.remove(block)
             return container
         case _:
             raise ValueError('Wrong split mode')

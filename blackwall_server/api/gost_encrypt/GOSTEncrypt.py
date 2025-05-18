@@ -1,6 +1,6 @@
 from .auxillary import split_by, block_zerofill_to, json_to_hex, hex_to_json
-from .gost_functions import *
-from .gost_exceptions import *
+from .gost_functions import encrypt, decrypt, generate_key
+from .gost_exceptions import GOSTBlockLengthError
 
 
 class GOSTEncrypt:
@@ -28,7 +28,7 @@ class GOSTEncrypt:
         else:
             self.key = int(generate_key(), 16)
             print(f"WARNING: No key was specified at initiation, generated key : {self.key}")
-            with open("gost_key.txt", 'w') as file_output:
+            with open("gost_key.txt", 'w', encoding='utf-8') as file_output:
                 file_output.write(hex(self.key))
 
     def encrypt_single(self, block: str, mode: str = "strict") -> str:
@@ -41,7 +41,8 @@ class GOSTEncrypt:
             WARNING: Python is a pussy and will eat up zeros in the beginning of the block
         """
         # TODO: Add additional checks for hex and format
-        if len(block) == 32: return hex(encrypt(int(block, 16), self.key))[2:]
+        if len(block) == 32:
+            return hex(encrypt(int(block, 16), self.key))[2:]
         # noinspection PyUnreachableCode
         match mode:
             case "strict":

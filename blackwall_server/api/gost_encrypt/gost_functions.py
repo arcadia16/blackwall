@@ -1,6 +1,9 @@
 """
 All values & function mathematics are taken from official GOST 34.12-2018 document
 """
+from random import randrange
+
+
 pi = [252, 238, 221, 17, 207, 110, 49, 22, 251, 196, 250, 218, 35, 197, 4, 77,
       233, 119, 240, 219, 147, 46, 153, 186, 23, 54, 241, 187, 20, 205, 95, 193,
       249, 24, 101, 90, 226, 92, 239, 33, 129, 28, 60, 66, 139, 1, 142, 79,
@@ -37,7 +40,7 @@ pi_inv = [165, 45, 50, 143, 14, 48, 56, 192, 84, 230, 158, 57, 85, 126, 82, 145,
 
 
 # S: V128 → V128
-def S(x: int) -> int:
+def s(x: int) -> int:
     # The input x and the output y have 128-bits
     y = 0
     for i in reversed(range(16)):
@@ -47,7 +50,7 @@ def S(x: int) -> int:
 
 
 # S**-1: V128 → V128
-def S_inverted(x: int) -> int:
+def s_inverted(x: int) -> int:
     # The input x and the output y have 128-bits
     y = 0
     for i in reversed(range(16)):
@@ -105,24 +108,24 @@ def kuz_multi(x: int, y: int) -> int:
 def linear_change(x: int) -> int:
     # The input x is 128-bits (considered as a vector of sixteen bytes)
     # The return value is 8-bits
-    C = [148, 32, 133, 16, 194, 192, 1, 251, 1, 192, 194, 16, 133, 32, 148, 1]
+    c = [148, 32, 133, 16, 194, 192, 1, 251, 1, 192, 194, 16, 133, 32, 148, 1]
     y = 0
     while x != 0:
-        # ∇(C(i) ∙ ∆(x))
-        y ^= kuz_multi(x & 0xff, C.pop())
+        # ∇(c(i) ∙ ∆(x))
+        y ^= kuz_multi(x & 0xff, c.pop())
         x >>= 8
     return y
 
 
 # R: V128 → V128
-def R(x: int) -> int:
+def r(x: int) -> int:
     # The input value x and the output value is 128-bits
     a = linear_change(x)
     return (a << 8 * 15) ^ (x >> 8)
 
 
 # R**-1: V128 → V128
-def R_inverted(x: int) -> int:
+def r_inverted(x: int) -> int:
     # The input value x and the output value are 128-bits
     a = x >> 15 * 8
     x = (x << 8) & (2 ** 128 - 1)
@@ -131,19 +134,19 @@ def R_inverted(x: int) -> int:
 
 
 # L
-def L(x: int) -> int:
+def l(x: int) -> int:
     # The input value x and the output value is 128-bits
     # This function is the composition of R sixteen times
     for _ in range(16):
-        x = R(x)
+        x = r(x)
     return x
 
 
 # L**-1
-def L_inverted(x: int) -> int:
+def l_inverted(x: int) -> int:
     # The input value x and the output value are 128-bits
     for _ in range(16):
-        x = R_inverted(x)
+        x = r_inverted(x)
     return x
 
 
@@ -157,8 +160,8 @@ def key_schedule(_k: int) -> list:
     keys.append(b)
     for i in range(4):
         for j in range(8):
-            c = L(8 * i + j + 1)
-            (a, b) = (L(S(a ^ c)) ^ b, a)
+            c = l(8 * i + j + 1)
+            (a, b) = (l(s(a ^ c)) ^ b, a)
         keys.append(a)
         keys.append(b)
     return keys
@@ -169,7 +172,7 @@ def encrypt(x: int, _k: int) -> int:
     # The key k is 256-bits
     keys = key_schedule(_k)
     for rnd in range(9):
-        x = L(S(x ^ keys[rnd]))
+        x = l(s(x ^ keys[rnd]))
     return x ^ keys[-1]
 
 
@@ -179,10 +182,9 @@ def decrypt(x: int, _k: int) -> int:
     keys = key_schedule(_k)
     keys.reverse()
     for rnd in range(9):
-        x = S_inverted(L_inverted(x ^ keys[rnd]))
+        x = s_inverted(l_inverted(x ^ keys[rnd]))
     return x ^ keys[-1]
 
 
 def generate_key() -> str:
-    from random import randrange
     return '%030x' % randrange(16 ** 32)
