@@ -33,8 +33,12 @@ def handleConnection(client):
 
     transport.add_server_key(HOST_KEY)
 
-    server_handler = SSHServerHandler()
+    if sys.platform in ['win32', 'win64']:
+        transport.local_version = "SSH-2.0-OpenSSH_9.3p1 Microsoft-Windows_10.0.19044"
+    else:
+        transport.local_version = "SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.1"
 
+    server_handler = SSHServerHandler()
     transport.start_server(server=server_handler)
 
     channel = transport.accept(1)
