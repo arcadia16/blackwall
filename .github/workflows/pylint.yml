@@ -27,7 +27,7 @@ jobs:
     - name: Install project dependencies
       uses: py-actions/py-dependency-install@v4
       with:
-        path: "blackwall_server/requirements.txt"
+        path: "requirements.txt"
     - name: Analysing the code with pylint
       run: |
         pylint $(git ls-files '*.py')
