@@ -4,10 +4,11 @@ import uvicorn
 from requests import post as r_post, ConnectionError as RequestConnectionError
 
 from agent import app
-from agent.routers import agent_api
+from agent.routers import agent_api, docker_api
 from agent.config import MASTER_SERVER_IP
 
 app.include_router(agent_api.router)
+app.include_router(docker_api.router)
 
 AGENT_ID = str(uuid4())
 REGISTRATION_STATE: bool = False

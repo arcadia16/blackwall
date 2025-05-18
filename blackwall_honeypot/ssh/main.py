@@ -17,7 +17,7 @@ class SSHServerHandler(paramiko.ServerInterface):
     def check_auth_password(self, username, password):
         LOGFILE_LOCK.acquire()
         try:
-            with open(LOGFILE, "a") as logfile_handle:
+            with open(LOGFILE, "a", encoding="utf-8") as logfile_handle:
                 print("New login: " + username + ":" + password)
                 logfile_handle.write(username + ":" + password + "\n")
         finally:
@@ -65,7 +65,7 @@ def main():
             except Exception as e:
                 print("ERROR: Client handling")
                 print(e)
-
+    # Future: look for exceptions for 65 and 68
     except Exception as e:
         print("ERROR: Failed to create socket")
         print(e)
