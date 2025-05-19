@@ -1,4 +1,7 @@
 name: Style testing (Flake8 & Pylint)
+permissions:
+  contents: read
+  pull-requests: write
 
 on:
   push:
