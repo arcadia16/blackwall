@@ -16,13 +16,14 @@ services:
     container_name: blackwall-redis
     ports:
       - 6379:6379
-# This breaks SSE, no response from server to client.
-#  nginx:
-#    container_name: blackwall-nginx
-#    image: nginx:latest
-#    ports:
-#      - 80:80
-#    volumes:
-#      - ./nginx:/etc/nginx/conf.d
-#    depends_on:
-#      - server
+
+  logstash:
+    image: logstash:9.0.1
+    container_name: blackwall-logstash
+    volumes:
+      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./logstash/pipeline:/usr/share/logstash/pipeline
+    ports:
+      - 12201:12201
+      - 5044:5044
+      - 9600:9600
