@@ -96,7 +96,7 @@ def check_server() -> int:
 def restart_container(container_name: str) -> dict | None:
     existing_container = get_container(container_name)
     try:
-        existing_container.start()
+        existing_container.restart()
         return {"container-name": container_name, "container-status": "restarted"}
     except APIError as err:
         if err.is_client_error():
@@ -127,8 +127,8 @@ def stop_container(container_name: str) -> dict[str, str]:
 
 def start_container(service_type: str, host_port: int, container_port: int, proto: str) -> dict[str, str]:
     container_name = f"blackwall-{service_type}"
-    config_file = LogConfig(type=LogConfig.types.GELF,
-                            config={"gelf-address": f"udp://192.168.1.64:12201"})
+    config_file = LogConfig(type=LogConfig.types.SYSLOG,
+                            config={"syslog-address": f"tcp://192.168.20.20:5555"}) # Actually works, but solve ip:port passing
     try:
         print(f"{__name__} :: Starting {service_type} at {proto}/{host_port}")
         container: Container = client.containers.run(f"arcadia16/{container_name}:latest",

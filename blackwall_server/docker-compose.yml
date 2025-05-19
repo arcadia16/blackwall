@@ -1,21 +1,22 @@
 services:
-  # Sucks with ModuleNotFound in root, ditch Flask, embrace FastAPI
-  server:
-    build: .
-    container_name: blackwall-server
-    image: blackwall_server
-#    env_file: .env
-    command: gunicorn app:"create_flask_app()" -b 0.0.0.0:8000 --reload -k gevent
-    ports:
-      - 80:8000
-    depends_on:
-      - redis
   # Works
   redis:
     image: redis:latest
     container_name: blackwall-redis
     ports:
       - 6379:6379
+
+  # Sucks with ModuleNotFound in root, ditch Flask, embrace FastAPI
+  server:
+    build: .
+    image: blackwall_server
+    container_name: blackwall-server
+#    env_file: .env
+    command: gunicorn app:"create_flask_app()" -b 0.0.0.0:8000 --reload -k gevent
+    ports:
+      - 80:8000
+    depends_on:
+      - redis
 
   logstash:
     image: logstash:9.0.1
@@ -24,6 +25,8 @@ services:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
       - ./logstash/pipeline:/usr/share/logstash/pipeline
     ports:
-      - 12201:12201
+      - 5555:5555
       - 5044:5044
       - 9600:9600
+    depends_on:
+      - server
