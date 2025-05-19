@@ -1,6 +1,8 @@
 import docker
 from docker.errors import ImageNotFound, NotFound, APIError
 from docker.models.containers import Container
+from docker.types import LogConfig
+from ..config import MASTER_SERVER_IP
 
 client = docker.from_env()
 
@@ -20,6 +22,7 @@ client = docker.from_env()
              \\ "
               '=='
 """
+
 
 def show_container(container_name: str) -> dict:
     container: Container
@@ -124,11 +127,16 @@ def stop_container(container_name: str) -> dict[str, str]:
 
 def start_container(service_type: str, host_port: int, container_port: int, proto: str) -> dict[str, str]:
     container_name = f"blackwall-{service_type}"
+    config_file = LogConfig(type=LogConfig.types.GELF,
+                            config={"gelf-address": f"udp://192.168.1.64:12201"})
     try:
         print(f"{__name__} :: Starting {service_type} at {proto}/{host_port}")
         container: Container = client.containers.run(f"arcadia16/{container_name}:latest",
                                                      name=f"{container_name}",
                                                      ports={f'{container_port}/{proto}': host_port},
+                                                     #working_dir=f"/{container_name}",
+                                                     log_config=config_file,
+                                                     network="bridge",
                                                      detach=True)
         print(container.name, container.status)
         return {"container-name": container.name, "container-status": container.status}
@@ -156,3 +164,6 @@ def start_container(service_type: str, host_port: int, container_port: int, prot
             print(f"{__name__} :: Docker-side error - {err.status_code}")
             print(err.explanation)
         return {"container-name": container_name, "container-status": "docker-failed"}
+
+# def container_logs_stream(container_name): # Works?
+#     return get_container(container_name).logs(stream=True)

@@ -1,7 +1,9 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
+from starlette.responses import StreamingResponse
+
 from ..docker_utils.docker_sdk import start_container, stop_container, prune, check_server, list_containers, \
-    show_container
+    show_container#, container_logs_stream
 from ..docker_utils.service_mapping import ports
 
 router = APIRouter(
@@ -35,6 +37,7 @@ async def start_service(service_name: str):
     if ports.get(service_name) is None:
         return JSONResponse({"status": "no-such-service"}, 404)
     result = start_container(service_name, *ports[service_name].values())
+    # Stream logs to REDIS?
     return JSONResponse(result, 200)
 
 
@@ -60,3 +63,8 @@ async def clear_containers():
 @router.get("/list-all")
 async def list_running():
     return JSONResponse({"running": list_containers()})
+
+# @router.get("/container/{container_name}/logs") # Probably works
+# async def show_container_logs(container_name: str):
+#     return StreamingResponse(content=container_logs_stream(container_name),
+#                              media_type="text/event-stream")
