@@ -1,9 +1,8 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
-from starlette.responses import StreamingResponse
 
 from ..docker_utils.docker_sdk import start_container, stop_container, prune, check_server, list_containers, \
-    show_container#, container_logs_stream
+    show_container
 from ..docker_utils.service_mapping import ports
 
 router = APIRouter(

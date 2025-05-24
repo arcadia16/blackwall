@@ -13,7 +13,6 @@ WHITELISTED_IPS = [
 @app.middleware('http')
 async def validate_ip(request: Request, call_next):
     # Get client IP
-
     ip = str(request.client.host)
     print("Validating incoming IP", ip)
     # Check if IP is allowed

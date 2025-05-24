@@ -20,7 +20,7 @@ async def index():
 async def check_server(request: Request):
     print("Incoming connection from", request.client.host)
     try:
-        r_get(MASTER_SERVER_IP, timeout=5)
+        r_get(MASTER_SERVER_IP, timeout=5, verify=False)
     except RequestConnectionError:
         print("Server unavailable")
         return JSONResponse(content={"server": "down"}, status_code=status.HTTP_503_SERVICE_UNAVAILABLE)

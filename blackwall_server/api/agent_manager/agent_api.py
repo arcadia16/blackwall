@@ -20,7 +20,7 @@ def search_by_value(dict_object: dict, dict_value):
 
 def try_request(request_url: str, timeout: float) -> Response:
     try:
-        response = r_get(request_url, timeout=timeout)
+        response = r_get(request_url, timeout=timeout, verify=False)
     except RequestConnectionError:
         dummy = Response()
         dummy.status_code = 500
@@ -35,7 +35,7 @@ class AgentAPI(Resource):
         target_ip = search_by_value(registered_agents, agent_id)
         print("Target:", target_ip)
         # TODO: Agent connection + Agent class
-        response = try_request(f"http://{target_ip}:8091/agent", 15)
+        response = try_request(f"https://{target_ip}:8091/agent/", 15)
         print(response)
         return {"AGENT_ID": agent_id, "STATE": response.status_code}
 

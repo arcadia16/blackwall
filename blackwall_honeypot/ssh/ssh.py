@@ -8,7 +8,7 @@ HOST_KEY = paramiko.RSAKey(filename='server.key', password="123")
 SSH_PORT = 2222
 LOGFILE = 'logins.txt'  # File to log the user:password combinations to
 LOGFILE_LOCK = threading.Lock()
-
+last_remote_ip: str
 
 class SSHServerHandler(paramiko.ServerInterface):
     def __init__(self):
@@ -18,7 +18,7 @@ class SSHServerHandler(paramiko.ServerInterface):
         LOGFILE_LOCK.acquire()
         try:
             with open(LOGFILE, "a", encoding="utf-8") as logfile_handle:
-                print("New login: " + username + ":" + password)
+                print(f"SSH::Login attempt::{last_remote_ip}::{username}:{password}")
                 logfile_handle.write(username + ":" + password + "\n")
         finally:
             LOGFILE_LOCK.release()
@@ -61,6 +61,7 @@ def main():
             try:
                 client_socket, client_addr = server_socket.accept()
                 print('Connection Received From:', client_addr)
+                last_remote_ip = client_addr
                 thread.start_new_thread(handle_connection, (client_socket,))
             except Exception as e:
                 print("ERROR: Client handling")

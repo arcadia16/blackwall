@@ -29,4 +29,5 @@ if __name__ == '__main__':
                 REGISTRATION_STATE = True
     except RequestConnectionError:
         print("Server unavailable!")
-    uvicorn.run("app:app", host="0.0.0.0", port=8091, log_level="info")
+    uvicorn.run("app:app", host="0.0.0.0", port=8091,
+                log_level="info", ssl_certfile="agent/certs/public_certificate.pem", ssl_keyfile="agent/certs/private_key.pem")
