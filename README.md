@@ -10,8 +10,8 @@
 [![Pylint](https://github.com/arcadia16/blackwall/actions/workflows/pylint.yml/badge.svg?branch=agent)](https://github.com/arcadia16/blackwall/actions/workflows/pylint.yml)
 [![Testing](https://github.com/arcadia16/blackwall/actions/workflows/python-app.yml/badge.svg)](https://github.com/arcadia16/blackwall/actions/workflows/python-app.yml)
 ## FAQ
-> [!CAUTION]
-> Project is WIP and not usable for production testing as of now [19/05/2025]. Proceed with caution.
+> [!WARNING]
+> Project is WIP, can be used for testing as of now [25/05/2025]. Proceed with caution.
 
 Q: What is this?
 <br>
