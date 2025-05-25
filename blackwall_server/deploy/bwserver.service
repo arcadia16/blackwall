@@ -1,0 +1,10 @@
+[Unit]
+Description=Blackwall Server
+After=docker.service
+
+[Service]
+WorkingDirectory=/var/www/blackwall_server
+ExecStart=/var/www/blackwall_server/start_server.sh
+
+[Install]
+WantedBy=multi-user.target
