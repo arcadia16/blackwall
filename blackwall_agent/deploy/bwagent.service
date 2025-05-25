@@ -1,0 +1,13 @@
+[Unit]
+Description=Blackwall Agent
+After=docker.service
+
+[Service]
+WorkingDirectory=/var/www/blackwall_agent
+Environment="PATH=/var/www/blackwall_agent/venv/bin"
+ExecStart=/var/www/blackwall_agent/start_agent.sh
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

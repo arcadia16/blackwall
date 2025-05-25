@@ -1,0 +1,3 @@
+FROM logstash:9.0.1
+
+EXPOSE 12201

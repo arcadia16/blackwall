@@ -18,9 +18,10 @@
         Space for agent templates
         -->
         <div class="col">
-            <button class="btn btn-secondary axios-get" type="button" value={{agent}}>Axios get</button>
-            <a id="agent_{{agent}}"></a>
-            <a>Status: </a><i class="fs-4 bi bi-question-circle" id="status_{{agent}}"></i>
+            Agent {{agent}}
+            <button class="btn btn-secondary axios-get" type="button" value={{agents[agent]}}>Axios get</button>
+            <a id="agent_{{agents[agent]}}"></a>
+            <a>Status: </a><i class="fs-4 bi bi-circle-fill text-secondary" id="status_{{agents[agent]}}"></i>
 
         </div>
         {% endfor %}

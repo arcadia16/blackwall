@@ -1,0 +1,4 @@
+FROM alpine/mysql
+
+EXPOSE 22
+EXPOSE 3306

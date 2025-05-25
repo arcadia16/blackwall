@@ -1,11 +1,13 @@
 from flask import render_template, request, Blueprint
+from .agent_manager.agent_api import registered_agents
 
 api_bp = Blueprint('api_blueprint', __name__)
 
 
 @api_bp.route('/')
 def index():
-    return render_template('index.html', agents=[1, 2, 3, 4])
+    print(registered_agents)
+    return render_template('index.html', agents=registered_agents)
 
 
 @api_bp.route('/health')

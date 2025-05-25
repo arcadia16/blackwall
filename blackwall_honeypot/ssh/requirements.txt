@@ -1,0 +1,2 @@
+paramiko==3.5.1
+thread==2.0.5
