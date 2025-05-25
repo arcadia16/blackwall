@@ -2,7 +2,7 @@ import docker
 from docker.errors import ImageNotFound, NotFound, APIError
 from docker.models.containers import Container
 from docker.types import LogConfig
-from ..config import MASTER_SERVER_IP
+from ..config import MASTER_SERVER_IP, LOGSTASH_PORT
 
 client = docker.from_env()
 
@@ -128,13 +128,14 @@ def stop_container(container_name: str) -> dict[str, str]:
 def start_container(service_type: str, host_port: int, container_port: int, proto: str) -> dict[str, str]:
     container_name = f"blackwall-{service_type}"
     config_file = LogConfig(type=LogConfig.types.SYSLOG,
-                            config={"syslog-address": f"tcp://192.168.20.20:5555"}) # Actually works, but solve ip:port passing
+                            config={
+                                "syslog-address": f"tcp://{MASTER_SERVER_IP}:{LOGSTASH_PORT}"})  # Actually works, but solve ip:port passing
     try:
         print(f"{__name__} :: Starting {service_type} at {proto}/{host_port}")
         container: Container = client.containers.run(f"arcadia16/{container_name}:latest",
                                                      name=f"{container_name}",
                                                      ports={f'{container_port}/{proto}': host_port},
-                                                     #working_dir=f"/{container_name}",
+                                                     # working_dir=f"/{container_name}",
                                                      log_config=config_file,
                                                      network="bridge",
                                                      detach=True)
@@ -163,7 +164,7 @@ def start_container(service_type: str, host_port: int, container_port: int, prot
         else:
             print(f"{__name__} :: Docker-side error - {err.status_code}")
             print(err.explanation)
-        return {"container-name": container_name, "container-status": "docker-failed"}
+        return {"container-name": container_name, "container-status": "docker-failed", "error-text": err.explanation}
 
 # def container_logs_stream(container_name): # Works?
 #     return get_container(container_name).logs(stream=True)
